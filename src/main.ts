@@ -1,7 +1,7 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import router from './router';
-import './router/permission';
+import router from './routers';
+import './routers/permission';
 import i18n from './i18n';
 import pinia from './stores';
 

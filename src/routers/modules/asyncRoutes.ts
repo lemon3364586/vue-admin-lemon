@@ -1,4 +1,4 @@
-import { RouteRawType } from '@/router/routes';
+import { RouteRawType } from '../routes.d';
 
 import Layout from '@/layout/layout.vue';
 

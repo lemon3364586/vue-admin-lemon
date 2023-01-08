@@ -1,4 +1,4 @@
-import { RouteRawType } from '@/router/routes';
+import { RouteRawType } from '../routes.d';
 
 const errorRoutes: RouteRawType = {
   path: '/error',
