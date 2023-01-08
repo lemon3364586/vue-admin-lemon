@@ -1,44 +1,19 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import type { RouteRecordRaw } from 'vue-router';
-import { RouteRawType } from '@/types/routes';
-import Layout from '@/layout/layout.vue';
 
-const constantRoutes: RouteRawType[] = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Layout,
-    redirect: 'dashboard',
-    children: [
-      {
-        path: 'dashboard',
-        component: () => import('@/views/dashboard/dashboard.vue'),
-        meta: { title: '首页' }
-      }
-    ]
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    component: () => import('@/views/login/login.vue'),
-    meta: { title: '登录' }
-  }
-];
+import constantRoutes from './modules/constantRoutes';
 
 const router = createRouter({
   history: createWebHashHistory(),
   routes: constantRoutes as RouteRecordRaw[],
+  // https://router.vuejs.org/zh/guide/advanced/scroll-behavior.html
   scrollBehavior(to, from, savedPosition) {
-    if (savedPosition) {
-      return savedPosition;
-    } else {
-      return {
-        // el: '.container',
-        top: 0,
-        left: 0,
-        behavior: 'smooth'
-      };
-    }
+    // 始终滚动到顶部
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve({ left: 0, top: 0 });
+      }, 500);
+    });
   }
 });
 

@@ -1,7 +1,7 @@
 /**
  * @description axios实例化默认配置
  */
-import appSetting from './setting';
+import appSetting from '../../setting';
 
 const { useMock } = appSetting;
 const { NODE_ENV, VITE_PROXY_API } = import.meta.env;

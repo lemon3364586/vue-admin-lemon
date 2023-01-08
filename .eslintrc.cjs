@@ -24,16 +24,16 @@ module.exports = {
     'no-debugger': 0,
     'no-var': 1, // 要求使用 let 或 const 而不是 var
     'no-undef': 0, // 未定义变量(typescript 实际上已经对其进行了监测，所以可以直接关闭，避免编辑器报错提示)
-    'no-unused-vars': 0, // 未使用变量
-    'no-empty': 0, // 块语句中的内容不能为空
-    'no-empty-pattern': 0, // 空对象
+    'no-unused-vars': 1, // 未使用变量
+    'no-empty': 1, // 块语句中的内容不能为空
+    'no-empty-pattern': 1, // 空对象
     'no-multiple-empty-lines': [1, { max: 30 }], // 空行最多不能超过30行
     'no-unreachable': 0, // 不能有无法执行的代码(如代码中直接return)
     'no-useless-escape': 0, // 不能有转义字符
     'space-before-function-paren': 0, // 函数名后必须加空格
 
-    'vue/multi-word-component-names': 0, // 组件名称校验，不推荐关闭，一般更推荐下方配置指定组件名进行忽略
-    'vue/no-unused-components': 0, // 已引入，但未使用组件
+    'vue/multi-word-component-names': 0, // 组件名称校验
+    'vue/no-unused-components': 1, // 已引入，但未使用组件
     // 'vue/no-unused-vars': 0, // 已定义/引入，但未使用变量
 
     'prettier/prettier': [0, { endOfLine: 'auto' }] // 关闭 prettier 相关提示

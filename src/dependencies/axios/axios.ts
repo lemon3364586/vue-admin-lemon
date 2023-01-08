@@ -7,7 +7,7 @@
 
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 import { ElMessage } from 'element-plus';
-import { axiosDefaultConfig, networkError } from '@/config/network.js';
+import { axiosDefaultConfig, networkError } from '@/dependencies/axios/network.js';
 import { getToken } from '@/utils/storage';
 
 // 实例化 axios

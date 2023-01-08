@@ -1,6 +1,6 @@
 <!-- 登录表单 -->
 <script setup lang="ts">
-import appSetting from '@/config/setting';
+import appSetting from '@/setting
 import { Base64 } from '@/plugins/crypto-js';
 import { ElMessageBox } from 'element-plus';
 import type { FormInstance, FormRules } from 'element-plus';

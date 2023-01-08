@@ -1,7 +1,7 @@
 import { ElMessage } from 'element-plus';
 import { login, getUserinfo } from '@/api/admin/admin';
 import { Aes } from '@/dependencies/crypto-js';
-import appSetting from '@/config/setting';
+import appSetting from '@/setting';
 import { setToken, getUserinfo as storagegetUserinfo, setUserinfo } from '@/utils/storage';
 import type { UserLoginType } from '@/api/admin/type';
 
