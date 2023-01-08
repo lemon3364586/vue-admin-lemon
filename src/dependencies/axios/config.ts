@@ -1,13 +1,11 @@
 /**
  * @description axios实例化默认配置
  */
-import appSetting from '../../setting';
 
-const { useMock } = appSetting;
-const { NODE_ENV, VITE_PROXY_API } = import.meta.env;
+const { NODE_ENV, VITE_USEMOCK, VITE_PROXY_API } = import.meta.env;
 
 let baseURL: string;
-if (!useMock) {
+if (!VITE_USEMOCK) {
   // 无需mock数据时，开发阶段用 server.proxy 可实现跨域请求
   baseURL = NODE_ENV === 'development' ? VITE_PROXY_API : '';
 }
@@ -23,8 +21,4 @@ export const axiosDefaultConfig = {
     // 如果后端需要用 json string 序列化的方式传递数据
     // 'Content-Type': 'application/x-www-form-urlencoded'
   }
-};
-// 请求错误处理
-export const networkError = (code: string | number) => {
-  console.log(code);
 };

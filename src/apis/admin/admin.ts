@@ -1,4 +1,4 @@
-import request from '@/dependencies/axios/axios.js';
+import request from '@/dependencies/axios/index.js';
 import type { UserLoginType } from './type';
 
 export function logout(data?: any) {

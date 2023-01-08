@@ -6,14 +6,14 @@
 'use strict';
 
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
-import { ElMessage } from 'element-plus';
-import { axiosDefaultConfig, networkError } from '@/dependencies/axios/network.js';
-import { getToken } from '@/utils/storage';
+import { axiosDefaultConfig } from './config.js';
+import { networkSuccess, networkError } from './handleResult';
 
 // 实例化 axios
-const axionInstance: AxiosInstance = axios.create(axiosDefaultConfig);
+const axiosInstance: AxiosInstance = axios.create(axiosDefaultConfig);
+
 // 请求拦截
-axionInstance.interceptors.request.use(
+axiosInstance.interceptors.request.use(
   (config: AxiosRequestConfig) => {
     /**
      * 可在此处配置请求前拦截，如添加 token 等
@@ -22,7 +22,8 @@ axionInstance.interceptors.request.use(
      * 如果 return 一个 false/Promise.reject()，则会取消本次请求
      */
 
-    if (getToken()) config.headers['token'] = getToken();
+    // if (getToken()) config.headers['token'] = getToken();// 携带token
+    // config.params.ts = new Date();// 携带请求发起时间
 
     return config;
   },
@@ -32,34 +33,41 @@ axionInstance.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+
 // 响应拦截
-axionInstance.interceptors.response.use(
+axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => {
     // 状态码为 2xx 时，do something
-    // console.log('response:', response); // for debug
+    // console.log('请求后拦截Response:', response); // for debug
+    // return Promise.resolve(response);
     // return Promise.reject(response);
-    if (response.config.responseType === 'blob') {
-      // 如果是文件流，直接过
-      return response;
-    } else {
-      return response.data;
-    }
+    return networkSuccess(response);
   },
   (error: AxiosError) => {
     // 状态码不为 2xx 时，do something
     console.error('请求后拦截Error:', error); // for debug
-    // 网络超时异常处理
-    if (
-      error.code === 'ECONNABORTED' ||
-      error.message.includes('timeout') ||
-      error.message === 'Network Error'
-    ) {
-      ElMessage.error('请求超时，请检查网络后重试');
-    } else {
-      ElMessage.error(error.message);
-    }
+    networkError(error);
     return Promise.reject(error);
   }
 );
 
-export default axionInstance;
+export default axiosInstance;
+
+interface options {
+  baseURL?: string;
+  timeout?: number;
+  url: string;
+  method?: string;
+  params?: object;
+  data?: object;
+}
+
+// get 请求
+export const axiosGet = (options: options) => {
+  return axiosInstance({ ...options, method: 'get' });
+};
+
+// post 请求
+export const axiosPost = (options: options) => {
+  return axiosInstance({ ...options, method: 'post' });
+};

@@ -5,7 +5,7 @@ import { viteMockServe } from 'vite-plugin-mock';
 import { createHtmlPlugin } from 'vite-plugin-html';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
-import appSetting from './src/config/setting';
+import appSetting from './src/setting';
 
 const pathResolve = (dir: string) => {
   return resolve(__dirname, '.', dir);
