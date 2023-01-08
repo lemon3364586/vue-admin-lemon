@@ -1,0 +1,17 @@
+/**
+ * @author lemon3364586<jun3364586@outlook.com>
+ * @description mixin样式
+ */
+
+// 可被重复使用的样式，使用 @include flex();
+@mixin flex($direction: row, $content: flex-start, $items: stretch) {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: $direction;
+  justify-content: $content;
+  align-items: $items;
+}
+@mixin flex-col($align: center) {
+  display: flex;
+  align-items: $align;
+}

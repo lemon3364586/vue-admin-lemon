@@ -1,0 +1,13 @@
+// 去除router-link下划线
+.router-link-active {
+  text-decoration: none;
+}
+
+// 去除 input[type=number] 默认上下箭头样式
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+input[type='number'] {
+  -moz-appearance: textfield;
+}

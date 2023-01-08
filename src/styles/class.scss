@@ -1,0 +1,97 @@
+/**
+ * @author lemon3364586<jun3364586@outlook.com>
+ * @description 公共样式
+ */
+
+// 清除部分样式
+.reset {
+  margin: 0;
+  padding: 0;
+  font-size: inherit;
+  line-height: inherit;
+  background-color: transparent;
+  color: inherit;
+  border: 0;
+}
+
+// 定义内外边距，历遍1-50
+@for $i from 0 through 50 {
+  // 得出：margin-30或m-30
+  .margin-#{$i},
+  .m-#{$i} {
+    margin: $i + px !important;
+  }
+
+  // 得出：padding-30或p-30
+  .padding-#{$i},
+  .p-#{$i} {
+    padding: $i + px !important;
+  }
+
+  // 只要双数和能被5除尽的数
+  @if $i % 2 == 0 or $i % 5 == 0 {
+    // 定义缩写
+    @each $short, $long in l left, t top, r right, b bottom {
+      // 定义外边距
+      .m-#{$short}-#{$i} {
+        margin-#{$long}: $i + px !important;
+      }
+      // 定义内边距
+      .p-#{$short}-#{$i} {
+        padding-#{$long}: $i + px !important;
+      }
+    }
+  }
+}
+
+// 定义圆角
+.radius-half {
+  // 圆角一半
+  border-radius: 9999px;
+}
+@for $i from 0 through 50 {
+  .radius-#{$i} {
+    border-radius: $i + px !important;
+  }
+  .radius-tl-#{$i} {
+    border-top-left-radius: $i + px !important;
+  }
+  .radius-tr-#{$i} {
+    border-top-right-radius: $i + px !important;
+  }
+  .radius-bl-#{$i} {
+    border-bottom-left-radius: $i + px !important;
+  }
+  .radius-br-#{$i} {
+    border-bottom-left-radius: $i + px !important;
+  }
+}
+
+// 文本行数限制
+.line-1 {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.line-2,
+.line-3,
+.line-4,
+.line-5 {
+  overflow: hidden;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  display: -webkit-box; // 弹性伸缩盒
+  -webkit-box-orient: vertical; // 设置伸缩盒子元素排列方式
+}
+.line-2 {
+  -webkit-line-clamp: 2;
+}
+.line-3 {
+  -webkit-line-clamp: 3;
+}
+.line-4 {
+  -webkit-line-clamp: 4;
+}
+.line-5 {
+  -webkit-line-clamp: 5;
+}
