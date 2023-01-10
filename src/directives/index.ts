@@ -4,7 +4,6 @@
  */
 
 import type { App } from 'vue';
-import type { PropType } from 'vue';
 
 const directiveModules = import.meta.glob('./modules/*.ts', {
   import: 'default',

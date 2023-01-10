@@ -1,22 +1,23 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import router from './routers';
-import './routers/permission';
-import i18n from './i18n';
-import pinia from './stores';
 
-import setupDirectives from './directives';
-import setupElementPlus from './dependencies/element-plus';
+import router from './routers'; // router
+import './routers/guard'; // router 守卫
+import pinia from './stores'; // pinia 状态管理库
 
-import './utils/load-styles';
+import setupDirectives from './directives'; // 注册自定义事件
+import setupElementPlus from './dependencies/element-plus'; // 注册 element-plus
+import setupI18n from './i18n'; // 注册国际化
+
+import './utils/load-styles'; // 全局样式
 
 const app = createApp(App);
 
 app.use(pinia);
 app.use(router);
-app.use(i18n);
 
 setupDirectives(app);
 setupElementPlus(app);
+setupI18n(app);
 
 app.mount('#app');

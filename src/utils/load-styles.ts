@@ -6,4 +6,4 @@ import 'animate.css';
 import '@/styles/reset.scss';
 import '@/styles/class.scss';
 import '@/styles/mixin.scss';
-import '@/styles/element.scss';
+import '@/styles/element-plus.scss';

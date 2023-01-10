@@ -3,16 +3,16 @@
  * 使用 v-permission['用户角色','可以有多个']
  */
 
-import { useAdminStore } from '@/stores/modules/admin';
-const { roles, isDeveloper } = useAdminStore();
+import { useUserStore } from '@/stores/modules/user';
 
 function checkPermission(el, binding) {
+  const { userRoles, hasRole } = useUserStore();
   const { value } = binding;
   if (value && value instanceof Array) {
     if (value.length > 0) {
-      if (isDeveloper()) return; // 开发者默认拥有所有权限
+      if (hasRole('developer')) return; // 开发者默认拥有所有权限
       else {
-        const hasPermission = roles.some((role) => value.includes(role));
+        const hasPermission = userRoles.some((role) => value.includes(role));
         if (!hasPermission) {
           // 没有权限，删除元素
           el.parentNode && el.parentNode.removeChild(el);
@@ -20,7 +20,7 @@ function checkPermission(el, binding) {
       }
     }
   } else {
-    throw new Error(`need roles! Like v-permission="['developer'],'admin'"`);
+    throw new Error(`need roles! Like v-permission="['developer','admin']"`);
   }
 }
 

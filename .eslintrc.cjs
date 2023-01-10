@@ -35,6 +35,7 @@ module.exports = {
     'vue/multi-word-component-names': 0, // 组件名称校验
     'vue/no-unused-components': 1, // 已引入，但未使用组件
     // 'vue/no-unused-vars': 0, // 已定义/引入，但未使用变量
+    'vue/valid-template-root': 1, // element 空节点
 
     'prettier/prettier': [0, { endOfLine: 'auto' }] // 关闭 prettier 相关提示
   }

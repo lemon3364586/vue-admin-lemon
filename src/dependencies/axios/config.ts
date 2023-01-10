@@ -2,13 +2,15 @@
  * @description axios实例化默认配置
  */
 
-const { NODE_ENV, VITE_USEMOCK, VITE_PROXY_API } = import.meta.env;
+import appSetting from '@/setting';
+
+const { useMock } = appSetting;
+const { NODE_ENV, VITE_PROXY_API } = import.meta.env;
 
 let baseURL: string;
-if (!VITE_USEMOCK) {
-  // 无需mock数据时，开发阶段用 server.proxy 可实现跨域请求
-  baseURL = NODE_ENV === 'development' ? VITE_PROXY_API : '';
-}
+// 无需mock数据时，开发阶段用 server.proxy 实现跨域请求
+if (!useMock) baseURL = NODE_ENV === 'development' ? VITE_PROXY_API : '';
+
 // 创建请求实例时的默认配置
 export const axiosDefaultConfig = {
   // 默认请求 url

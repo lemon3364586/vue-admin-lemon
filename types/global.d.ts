@@ -7,12 +7,8 @@ declare global {
 
   // axios response 类型定义
   declare module 'axios' {
-    // 后台返回数据格式
-    interface responseDataType<T> {
-      code: string | number;
-      msg: string;
-      payload?: T;
+    interface AxiosInstance {
+      (config: AxiosRequestConfig): Promise<any>;
     }
-    export interface AxiosResponse extends responseDataType {}
   }
 }

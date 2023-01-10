@@ -1,0 +1,25 @@
+/* layout布局相关css变量 */
+
+$zIndex: 1001;
+// home
+$homeBgColor: #f4f4f4;
+// nav
+$headerHeight: 50px;
+$tagsHeight: 40px;
+// siderbar
+$sidebarWidth: 250px;
+$sidebarWidthClose: 68px;
+// menu
+$menuBgColor: #2b2f3a;
+$menuActiveColor: #0187fb;
+$menuTextColor: #fff;
+$menuActiveTextColor: #fff;
+// footer
+$footerHeight:30px;
+
+:export {
+  menuBg: $menuBgColor;
+  menuActive: $menuActiveColor;
+  menuText: $menuTextColor;
+  menuActiveText: $menuActiveTextColor;
+}

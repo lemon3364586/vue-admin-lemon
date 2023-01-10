@@ -56,7 +56,7 @@ export default axiosInstance;
 interface options {
   baseURL?: string;
   timeout?: number;
-  url: string;
+  url?: string;
   method?: string;
   params?: object;
   data?: object;

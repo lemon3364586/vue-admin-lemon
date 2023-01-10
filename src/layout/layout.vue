@@ -1,8 +1,24 @@
 <!-- 页面布局 -->
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import sidebar from './components/sidebar/sidebar.vue';
+</script>
 
 <template>
-  <div></div>
+  <div class="home">
+    <sidebar />
+    <RouterView />
+  </div>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss">
+@import '@/layout/styles/variable.scss';
+
+.home {
+  background-color: $homeBgColor;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  z-index: $zIndex;
+}
+</style>

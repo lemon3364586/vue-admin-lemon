@@ -6,6 +6,7 @@ const asyncRoutes: RouteRawType[] = [
   {
     path: '/test',
     component: Layout,
+    redirect:'test1',
     children: [
       {
         path: 'test1',
