@@ -13,7 +13,7 @@ if (!useMock) baseURL = NODE_ENV === 'development' ? VITE_PROXY_API : '';
 
 // 创建请求实例时的默认配置
 export const axiosDefaultConfig = {
-  // 默认请求 url
+  // 实际请求 url = baseURl + url
   baseURL,
   // 超时时间
   timeout: 5000,
