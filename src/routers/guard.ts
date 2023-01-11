@@ -18,26 +18,27 @@ router.beforeEach(async (to, from, next) => {
     next();
   } else {
     const { getAccessToken, getUserInfo, setUserRoutes } = useUserStore();
-    // if (!getAccessToken) {
-    //   await ElMessageBox.alert('当前浏览器尚未登录账号，点击确认前往登录', '未登录', {
-    //     confirmButtonText: '确认',
-    //     type: 'error',
-    //     autofocus: false,
-    //     showClose: false,
-    //     buttonSize: 'default'
-    //   });
-    //   next({ path: '/login', query: { redirect: to.path } });
-    // } else {
-    // await getUserInfo();
-    // const accessRoutes = await setUserRoutes();
-    // accessRoutes.forEach((routeItem) => {
-    //   // console.log('[ routeItem ]-34', routeItem);
-    //   // router.addRoute(routeItem);
-    // });
-    // 动态添加路由后，addroute需触发新导航才能生效，否则会跳往404
-    // https://router.vuejs.org/zh/api/index.html#addroute-1
-    // next({ ...to, replace: true });
-    // }
+    if (!getAccessToken) {
+      ElMessageBox.alert('当前浏览器尚未登录账号，点击确认前往登录', '未登录', {
+        confirmButtonText: '确认',
+        type: 'error',
+        autofocus: false,
+        showClose: false,
+        buttonSize: 'default'
+      }).then(() => {
+        next({ path: '/login', query: { redirect: to.path } });
+      });
+    } else {
+      await getUserInfo();
+      const accessRoutes = await setUserRoutes();
+      accessRoutes.forEach((routeItem) => {
+        // console.log('[ routeItem ]-34', routeItem);
+        // router.addRoute(routeItem);
+      });
+      // 动态添加路由后，addroute需触发新导航才能生效，否则会跳往404
+      // https://router.vuejs.org/zh/api/index.html#addroute-1
+      next({ ...to, replace: true });
+    }
     next();
   }
 });
