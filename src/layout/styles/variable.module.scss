@@ -18,8 +18,8 @@ $menuActiveTextColor: #fff;
 $footerHeight:30px;
 
 :export {
-  menuBg: $menuBgColor;
-  menuActive: $menuActiveColor;
-  menuText: $menuTextColor;
-  menuActiveText: $menuActiveTextColor;
+  menuBgColor: $menuBgColor;
+  menuActiveColor: $menuActiveColor;
+  menuTextColor: $menuTextColor;
+  menuActiveTextColor: $menuActiveTextColor;
 }

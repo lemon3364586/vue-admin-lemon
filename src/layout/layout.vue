@@ -11,7 +11,7 @@ import sidebar from './components/sidebar/sidebar.vue';
 </template>
 
 <style lang="scss">
-@import '@/layout/styles/variable.scss';
+@import '@/layout/styles/variable.module.scss';
 
 .home {
   background-color: $homeBgColor;

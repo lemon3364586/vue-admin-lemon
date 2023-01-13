@@ -1,54 +1,46 @@
-import asyncRoutes from '@/routers/modules/asyncRoutes';
-import errorRoutes from '@/routers/modules/errorRoutes';
-
-import appSetting from '@/setting';
+import appSetting from '@/config/setting';
+import sidebarMenu from '@/config/sidebar-menu';
 import { Aes } from '@/dependencies/crypto-js';
 import { getUserinfo } from '@/apis/user/login';
 import { ElMessage } from 'element-plus';
-import { filterAsyncRoutes } from '@/utils/handleRoutes';
-import constantRoutes from '@/routers/modules/constantRoutes';
 
 export const useUserStore = defineStore('userStore', {
   state: () => ({
-    accessToken: null as string | null, // 交互 token
+    accessToken: null as string | null, // 数据交互 token
     userInfo: {}, // 用户信息
-    userRoles: [], // 用户角色
-    userRoutes: [] // 根据用户角色权限过滤后的路由表
+    userRoles: [] // 用户角色
   }),
   getters: {
     getAccessToken(state) {
       return true;
       return state.accessToken && state.accessToken.length > 0;
     },
-    hasRole(state) {
-      return (role: string) => {
-        return state.userRoles.includes(role);
-      };
-    },
-    getUserRoutes(state) {
-      return state.userRoutes;
+    isDeveloper(state) {
+      return state.userRoles.includes('developer');
     }
   },
   actions: {
     // 获取用户信息
     async getUserInfo() {
-      if (this.userInfo && this.userRoles.length > 0) return;
-      const { code, msg, payload } = await getUserinfo();
-      if (code !== 200) ElMessage.error(msg || '获取用户信息失败');
-      this.userInfo = payload;
-      this.userRoles = Aes.decode(
-        payload.permissions.roles,
-        appSetting.aesKey,
-        payload.permissions.iv
-      );
-    },
-    // 过滤并设置用户路由
-    async setUserRoutes() {
-      if (this.userRoutes.length > 0) return this.userRoutes;
-      const finallyAsyncRoutes = filterAsyncRoutes(asyncRoutes, this.userRoles);
-      this.userRoutes = [...finallyAsyncRoutes, ...constantRoutes, ...errorRoutes];
-      return finallyAsyncRoutes;
+      if (this.userInfo && this.userRoles.length > 0) {
+        // 存在已缓存用户信息，直接解密得到用户权限
+        this.userRoles = Aes.decode(
+          this.userInfo.permissions.roles,
+          appSetting.aesKey,
+          this.userInfo.permissions.iv
+        );
+      } else {
+        // 不存在，从后端请求用户信息(包含用户权限)
+        const { code, msg, payload } = await getUserinfo();
+        if (code !== 200) ElMessage.error(msg || '获取用户信息失败');
+        this.userInfo = payload;
+        this.userRoles = Aes.decode(
+          payload.permissions.roles,
+          appSetting.aesKey,
+          payload.permissions.iv
+        );
+      }
     }
   },
-  persist: { storage: sessionStorage }
+  persist: { storage: sessionStorage, paths: ['accessToken', 'userInfo'] }
 });

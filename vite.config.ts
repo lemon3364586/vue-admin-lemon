@@ -5,7 +5,7 @@ import { viteMockServe } from 'vite-plugin-mock';
 import { createHtmlPlugin } from 'vite-plugin-html';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
-import appSetting from './src/setting';
+import appSetting from './src/config/setting';
 
 const pathResolve = (dir: string) => {
   return resolve(__dirname, '.', dir);
@@ -46,12 +46,12 @@ export default defineConfig(({ command, mode }) => {
       }),
       AutoImport({
         imports: ['vue', 'vue-router', 'vue-i18n', 'pinia'],
-        dts: 'types/auto-import.d.ts',
+        dts: 'types/global/auto-import.d.ts',
         resolvers: []
       }),
       Components({
         dirs: ['src/components'],
-        dts: 'types/components.d.ts',
+        dts: 'types/global/components.d.ts',
         resolvers: []
       })
     ],
@@ -64,7 +64,8 @@ export default defineConfig(({ command, mode }) => {
         compress: {
           keep_infinity: true, // 防止 Infinity 被压缩成 1/0，这可能会导致 Chrome 上的性能问题
           drop_console: true, // 生产环境去除 console
-          drop_debugger: true // 生产环境去除 debugger
+          drop_debugger: true, // 生产环境去除 debugger
+          pure_funcs: ['console.log'] // 去除指定 console
         }
       },
       chunkSizeWarningLimit: 3000, // chunk 大小警告的限制（以 kbs 为单位）

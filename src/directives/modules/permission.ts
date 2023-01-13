@@ -6,11 +6,11 @@
 import { useUserStore } from '@/stores/modules/user';
 
 function checkPermission(el, binding) {
-  const { userRoles, hasRole } = useUserStore();
+  const { userRoles, isDeveloper } = useUserStore();
   const { value } = binding;
   if (value && value instanceof Array) {
     if (value.length > 0) {
-      if (hasRole('developer')) return; // 开发者默认拥有所有权限
+      if (isDeveloper) return; // 开发者默认拥有所有权限
       else {
         const hasPermission = userRoles.some((role) => value.includes(role));
         if (!hasPermission) {

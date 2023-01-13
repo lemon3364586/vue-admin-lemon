@@ -21,7 +21,7 @@ export const Base64 = {
    */
   encode: function (plaintext: any) {
     plaintext = tryString(plaintext);
-    let strUtf8 = CryptoJS.enc.Utf8.parse(plaintext);
+    const strUtf8 = CryptoJS.enc.Utf8.parse(plaintext);
     return CryptoJS.enc.Base64.stringify(strUtf8);
   },
   /**
@@ -29,7 +29,7 @@ export const Base64 = {
    * @returns base解码字符串
    */
   decode: function (data: any) {
-    let parseWordWorry = CryptoJS.enc.Base64.parse(data);
+    const parseWordWorry = CryptoJS.enc.Base64.parse(data);
     return parseWordWorry.toString(CryptoJS.enc.Utf8);
   }
 };
@@ -88,9 +88,9 @@ export const Aes = {
  */
 export function RandCode(len: number = 16) {
   // 默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1
-  var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';
-  var maxPos = $chars.length;
-  var str = '';
+  const $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';
+  const maxPos = $chars.length;
+  let str = '';
   for (let i = 0; i < len; i++) {
     str += $chars.charAt(Math.floor(Math.random() * maxPos));
   }
