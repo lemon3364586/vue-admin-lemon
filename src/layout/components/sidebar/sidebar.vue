@@ -1,19 +1,21 @@
 <!-- 侧栏菜单 -->
 <script setup lang="ts">
-import appSetting from '@/config/setting';
-import { useAppStore } from '@/stores/modules/app';
-import { useUserStore } from '@/stores/modules/user';
-import sidebarMenu from '@/config/sidebar-menu';
-import { filterMenu } from '@/utils/sidebar-menu';
-import layoutVar from '@/layout/styles/variable.module.scss';
-
 import SidebarItem from './components/SidebarItem.vue';
 
-const { sidebarOpen } = storeToRefs(useAppStore());
-const { userRoles } = storeToRefs(useUserStore());
+import appSetting from '@/config/setting';
+import { useAppStore } from '@/stores/modules/app';
+import layoutVar from '@/layout/styles/variable.module.scss';
+import { getMenuList } from '@/apis/user/login';
 
-const finallySidebarMenu = filterMenu(sidebarMenu, userRoles.value);
+const { sidebarOpen } = storeToRefs(useAppStore());
+
 const layoutCssVar = computed(() => layoutVar);
+
+const menuList = await getMenuList();
+const activeMenu = computed(() => {
+  const { path } = useRoute();
+  return path.substring(1);
+});
 </script>
 
 <template>
@@ -24,14 +26,14 @@ const layoutCssVar = computed(() => layoutVar);
     </div>
     <el-scrollbar>
       <el-menu
-        :default-active="finallySidebarMenu"
+        :default-active="activeMenu"
         :collapse="!sidebarOpen"
         :unique-opened="true"
         :collapse-transition="false"
         mode="vertical"
       >
         <SidebarItem
-          v-for="subMenu in finallySidebarMenu"
+          v-for="subMenu in menuList"
           :key="subMenu.index"
           :sub-menu="subMenu"
         />

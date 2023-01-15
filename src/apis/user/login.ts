@@ -1,4 +1,4 @@
-import { axiosPost } from '@/dependencies/axios/index.js';
+import { axiosGet, axiosPost } from '@/dependencies/axios/index.js';
 import type { UserLoginType } from './type';
 
 export function logout(data?: any) {
@@ -7,8 +7,13 @@ export function logout(data?: any) {
     data
   });
 }
+export function getMenuList(data?: any) {
+  return axiosGet({
+    url: '/auth/getMenuList'
+  });
+}
 export function getUserinfo(data?: any) {
-  return axiosPost({
+  return axiosGet({
     url: '/index/getUserinfo',
     data
   });

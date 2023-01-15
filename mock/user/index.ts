@@ -1,35 +1,31 @@
 import type { MockMethod } from 'vite-plugin-mock';
+
+import { success, fail } from 'mock/utils/response';
+import userinfo from 'mock/data/user/userinfo';
+import menuList from 'mock/data/user/menuList';
+
 export default [
   {
     url: '/index/login',
     method: 'post',
     response: ({ body }) => {
-      return {
-        code: 200,
-        msg: 'success',
-        payload: 'tokenTest'
-      };
+      // const {username,password} = body;
+      return success('tokenTest');
     }
   },
   {
-    url: '/index/getUserinfo',
+    url: '/index/logout',
     method: 'post',
-    response: ({ body }) => {
-      return {
-        code: 200,
-        msg: 'success',
-        payload: {
-          nickname: '🍋柠檬没有汁',
-          avatar: '',
-          permissions: {
-            roles: 'U2FsdGVkX1/QgvLjHaSD0CrWShZidw8Pok6m5VsGSmU=',// 开发权限
-            // roles:'U2FsdGVkX18cM7G8pXMHqnQY5+Ej6qO0OUahn6HtnsI=',// system
-            // roles:'U2FsdGVkX1+XTzBhAvM6uW2WxBoEVyKFMou5BQgHHuQ=',// admin
-            // roles:'U2FsdGVkX18sJzDlzl4DUyo4Io2HAJ9fusAAjHk1e7E=',// visitor
-            iv: 'lemon3364586'
-          }
-        }
-      };
-    }
+    response: () => success()
+  },
+  {
+    url: '/index/getUserinfo',
+    method: 'get',
+    response: () => success(userinfo)
+  },
+  {
+    url: '/auth/getMenuList',
+    method: 'get',
+    response: () => success(menuList)
   }
 ] as MockMethod[];
