@@ -2,16 +2,18 @@
 <script setup lang="ts">
 import SidebarItem from './components/SidebarItem.vue';
 
-import appSetting from '@/config/setting';
-import { useAppStore } from '@/stores/modules/app';
+import appSetting from '@/setting'
 import layoutVar from '@/layout/styles/variable.module.scss';
+import { useAppStore } from '@/stores/modules/app';
 import { getMenuList } from '@/apis/user/login';
-
-const { sidebarOpen } = storeToRefs(useAppStore());
 
 const layoutCssVar = computed(() => layoutVar);
 
+const { sidebarOpen } = storeToRefs(useAppStore());
+
+// 从后端获取用户菜单列表
 const menuList = await getMenuList();
+// 获取当前激活路由，设置为菜单激活项
 const activeMenu = computed(() => {
   const { path } = useRoute();
   return path.substring(1);

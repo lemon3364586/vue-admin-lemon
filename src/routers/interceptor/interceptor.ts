@@ -1,7 +1,7 @@
 // https://router.vuejs.org/zh/guide/advanced/navigation-guards.html
 
 import { startProgress, doneProgress } from '@/dependencies/nporgress';
-import appSetting from '@/config/setting';
+import appSetting from '@/setting';
 import { useUserStore } from '@/stores/modules/user';
 import { resetAll } from '@/utils/storage';
 import { ElMessageBox } from 'element-plus';

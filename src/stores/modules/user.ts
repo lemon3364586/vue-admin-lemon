@@ -1,5 +1,4 @@
-import appSetting from '@/config/setting';
-import sidebarMenu from '@/config/sidebar-menu';
+import appSetting from '@/setting';
 import { Aes } from '@/dependencies/crypto-js';
 import { getUserinfo } from '@/apis/user/login';
 import { ElMessage } from 'element-plus';
