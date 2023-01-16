@@ -4,12 +4,12 @@ import type { RouteRawType } from 'types/router/routes';
 
 export default [
   {
-    path: '403',
+    path: '/403',
     component: () => import('@/views/error/403.vue'),
     meta: { title: '403', breadcrumbView: false, tagsView: false }
   },
   {
-    path: '404',
+    path: '/404',
     component: () => import('@/views/error/404.vue'),
     meta: { title: '404', breadcrumbView: false, tagsView: false }
   },

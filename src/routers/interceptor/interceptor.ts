@@ -19,29 +19,26 @@ const routerInterceptor = (router) => {
     if (allowRoutesList.includes(to.path)) {
       if (to.path === '/login') resetAll(); // 进入登录页面时，清空所有已缓存数据
       next();
-    }
-
-    const { getAccessToken, getUserInfo } = useUserStore();
-    if (!getAccessToken) {
-      ElMessageBox.alert('当前浏览器尚未登录账号，点击确认前往登录', '未登录', {
-        confirmButtonText: '确认',
-        type: 'error',
-        autofocus: false,
-        showClose: false,
-        buttonSize: 'default'
-      }).then(() => {
-        next({ path: '/login', query: { redirect: to.path } });
-      });
     } else {
-      await getUserInfo();
-      // const accessRoutes = await setUserRoutes();
-      // accessRoutes.forEach((routeItem) => {
-      // console.log('[ routeItem ]-34', routeItem);
-      // router.addRoute(routeItem);
-      // });
-      // 动态添加路由后，addroute需触发新导航才能生效，否则会跳往404
-      // https://router.vuejs.org/zh/api/index.html#addroute-1
-      // next({ ...to, replace: true });
+      const { getAccessToken, getUserInfo, isDeveloper, userHasPermission } = useUserStore();
+      if (!getAccessToken) {
+        await ElMessageBox.alert('当前浏览器尚未登录账号，点击确认前往登录', '未登录', {
+          confirmButtonText: '确认',
+          type: 'error',
+          autofocus: false,
+          showClose: false,
+          buttonSize: 'default'
+        });
+        next({ path: '/login', query: { redirect: to.path } });
+      } else {
+        await getUserInfo();
+        if (isDeveloper) next(); // 开发者权限直接跳转
+        else {
+          const hasPermission = userHasPermission({ ...to });
+          if (hasPermission) next();
+          else next({ path: '/403' });
+        }
+      }
     }
   });
 

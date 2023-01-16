@@ -1,11 +1,11 @@
 <!-- 页面布局 -->
 <script setup lang="ts">
-import sidebar from './components/sidebar/sidebar.vue';
+// import sidebar from './components/sidebar/sidebar.vue';
 </script>
 
 <template>
   <div class="home">
-    <sidebar />
+    <!-- <sidebar /> -->
     <RouterView />
   </div>
 </template>

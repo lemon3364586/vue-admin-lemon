@@ -2,7 +2,6 @@ import { createApp } from 'vue';
 import App from './App.vue';
 
 import router from './routers'; // router
-import './routers/guard'; // router 守卫
 import pinia from './stores'; // pinia 状态管理库
 
 import setupDirectives from './directives'; // 注册自定义事件
