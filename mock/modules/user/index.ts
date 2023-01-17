@@ -1,7 +1,6 @@
 import type { MockMethod } from 'vite-plugin-mock';
 
 import { success, fail } from 'mock/utils/response';
-import userinfo from 'mock/data/user/userinfo';
 import menuList from 'mock/data/user/menuList';
 
 export default [
@@ -21,11 +20,37 @@ export default [
   {
     url: '/index/getUserinfo',
     method: 'get',
-    response: () => success(userinfo)
+    response: () => {
+      return {
+        code: 200,
+        msg: 'success',
+        data: {
+          nickname: '🍋柠檬没有汁',
+          avatar: ''
+        }
+      };
+    }
   },
   {
     url: '/auth/getMenuList',
     method: 'get',
     response: () => success(menuList)
+  },
+  {
+    url: '/auth/getUserRoles',
+    method: 'get',
+    response: ({ body }) => {
+      return {
+        code: 200,
+        msg: 'success',
+        data: [
+          'developer', // 开发者
+          // 'system', // 系统管理员
+          // 'admin', // 管理员
+          // 'manage', // 用户
+          // 'visitor' // 游客
+        ]
+      };
+    }
   }
 ] as MockMethod[];

@@ -10,37 +10,68 @@ import { ElMessageBox } from 'element-plus';
 const allowRoutesList = ['/login', '/register', '/about'];
 const routerInterceptor = (router) => {
   // 全局路由前置守卫
-  router.beforeEach(async (to, from, next) => {
-    if (appSetting.showProgress) {
-      startProgress();
-      document.title = `跳转中…`;
-    }
+  // router.beforeEach(async (to, from, next) => {
+  //   if (appSetting.showProgress) {
+  //     startProgress();
+  //     document.title = `跳转中…`;
+  //   }
 
-    if (allowRoutesList.includes(to.path)) {
-      if (to.path === '/login') resetAll(); // 进入登录页面时，清空所有已缓存数据
-      next();
-    } else {
-      const { getAccessToken, getUserInfo, isDeveloper, userHasPermission } = useUserStore();
-      if (!getAccessToken) {
-        await ElMessageBox.alert('当前浏览器尚未登录账号，点击确认前往登录', '未登录', {
-          confirmButtonText: '确认',
-          type: 'error',
-          autofocus: false,
-          showClose: false,
-          buttonSize: 'default'
-        });
-        next({ path: '/login', query: { redirect: to.path } });
+  //   if (allowRoutesList.includes(to.path)) {
+  //     if (to.path === '/login') resetAll(); // 进入登录页面时，清空所有已缓存数据
+  //     next();
+  //   } else {
+  //     const { getAccessToken, getUserRoles, userHasRoutePermission } = useUserStore();
+  //     if (!getAccessToken) {
+  //       await ElMessageBox.alert('当前浏览器尚未登录账号，点击确认前往登录', '未登录', {
+  //         confirmButtonText: '确认',
+  //         type: 'error',
+  //         autofocus: false,
+  //         showClose: false,
+  //         buttonSize: 'default'
+  //       });
+  //       next({ path: '/login', query: { redirect: to.path } });
+  //     } else {
+  //       const isGetRoles = await getUserRoles(); // 从后端获取用户角色，避免恶意修改数据
+  //       if (!isGetRoles) next({ path: '/login', query: { redirect: to.path } });
+  //       else {
+  //         const hasPermission = userHasRoutePermission({ ...to });
+  //         if (hasPermission) next();
+  //         else next({ path: '/403' });
+  //       }
+  //     }
+  //   }
+  // });
+  router.beforeEach(async (to, from, next) => {
+      if (appSetting.showProgress) {
+        startProgress();
+        document.title = `跳转中…`;
+      }
+
+      if (allowRoutesList.includes(to.path)) {
+        if (to.path === '/login') resetAll(); // 进入登录页面时，清空所有已缓存数据
+        next();
       } else {
-        await getUserInfo();
-        if (isDeveloper) next(); // 开发者权限直接跳转
-        else {
-          const hasPermission = userHasPermission({ ...to });
-          if (hasPermission) next();
-          else next({ path: '/403' });
+        const { getAccessToken, getUserRoles, userHasRoutePermission } = useUserStore();
+        if (!getAccessToken) {
+          await ElMessageBox.alert('当前浏览器尚未登录账号，点击确认前往登录', '未登录', {
+            confirmButtonText: '确认',
+            type: 'error',
+            autofocus: false,
+            showClose: false,
+            buttonSize: 'default'
+          });
+          next({ path: '/login', query: { redirect: to.path } });
+        } else {
+          const isGetRoles = await getUserRoles(); // 从后端获取用户角色，避免恶意修改数据
+          if (!isGetRoles) next({ path: '/login', query: { redirect: to.path } });
+          else {
+            const hasPermission = userHasRoutePermission({ ...to });
+            if (hasPermission) next();
+            else next({ path: '/403' });
+          }
         }
       }
-    }
-  });
+    });
 
   // 全局路由后置守卫
   router.afterEach((to, from) => {
