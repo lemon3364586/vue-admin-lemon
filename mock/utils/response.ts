@@ -7,10 +7,10 @@ export function success(data?: any) {
   };
 }
 // 请求失败
-export function fail(data?: any) {
+export function fail(msg?: string, data?: any) {
   return {
-    code: 200,
-    msg: 'success',
+    code: 201,
+    msg,
     data
   };
 }

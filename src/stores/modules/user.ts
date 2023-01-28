@@ -1,6 +1,5 @@
-import { getUserinfo, getUserRoles } from '@/apis/user/login';
+import { getUserinfo, getUserRoles, getMenuList } from '@/apis/user/login';
 import { ElMessage, ElMessageBox } from 'element-plus';
-import router from '@/routers';
 
 export const useUserStore = defineStore('userStore', {
   state: () => ({

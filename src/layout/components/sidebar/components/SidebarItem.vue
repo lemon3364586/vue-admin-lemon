@@ -9,10 +9,10 @@ defineProps({
   }
 });
 
-const hasChildren = (item) => {
-  if (item.children && item.children.length > 0) return true;
-  else return false;
-};
+// 判断是否有子菜单
+function hasChildren(item) {
+  return item.children && item.children.length > 0;
+}
 </script>
 
 <template>

@@ -10,12 +10,11 @@ const props = defineProps({
 });
 
 const componentName = computed(() => {
-  console.log('[ isHyperlink(props.path) ]-13', isHyperlink(props.path));
   if (isHyperlink(props.path)) return 'a';
   else return 'router-link';
 });
 
-const linkProps = (to:string) => {
+const linkProps = (to: string) => {
   if (isHyperlink(to)) return { href: to, target: '_blank', rel: 'noopener' };
   return { to };
 };
@@ -24,5 +23,3 @@ const linkProps = (to:string) => {
 <template>
   <component :is="componentName" v-bind="linkProps(path)"><slot /></component>
 </template>
-
-<style lang="scss" scoped></style>

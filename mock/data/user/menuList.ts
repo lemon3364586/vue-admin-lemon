@@ -19,6 +19,10 @@ export default [
         path: 'test1',
         title: '测试1',
         children: [{ path: 'test2', title: '测试2' }]
+      },
+      {
+        path: 'https://www.baidu.com',
+        title: '百度'
       }
     ]
   }

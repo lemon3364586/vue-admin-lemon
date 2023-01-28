@@ -1,6 +1,6 @@
 <!-- 语言切换 -->
 <script setup lang="ts">
-import useAppStore from '@/stores/modules/app';
+import { useAppStore } from '@/stores/modules/app';
 const appStore = useAppStore();
 const handleCommand = (command: string) => {
   if (command !== appStore.language) {

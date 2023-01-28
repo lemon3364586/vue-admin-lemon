@@ -13,8 +13,8 @@ export function getUserRoles() {
   return axiosGet({ url: '/auth/getUserRoles' });
 }
 // 获取用户菜单
-export function getMenuList() {
-  return axiosGet({ url: '/auth/getMenuList' });
+export function getUserMenuList() {
+  return axiosGet({ url: '/auth/getUserMenuList' });
 }
 // 获取用户信息
 export function getUserinfo() {

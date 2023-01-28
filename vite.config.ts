@@ -16,7 +16,7 @@ const timeStamp = new Date().getTime();
 // https://cn.vitejs.dev/config
 export default defineConfig(({ command, mode }) => {
   // 根据当前 mode 加载 .env 文件,设置第三个参数为 '' 来加载所有环境变量，而不管是否有 `VITE_` 前缀
-  const { VITE_PROXY_TARGET } = loadEnv(mode, `./env`, '');
+  const { VITE_BASEURL,VITE_PROXY_API } = loadEnv(mode, `./env`, '');
   const isBuild = command === 'build';
   return {
     base: './', // 开发或生产环境服务的公共基础路径
@@ -91,8 +91,8 @@ export default defineConfig(({ command, mode }) => {
       cors: true, // 是否允许跨域
       proxy: {
         // 设置代理
-        '/proxyApi': {
-          target: VITE_PROXY_TARGET,
+        [VITE_PROXY_API]: {
+          target: VITE_BASEURL,
           changeOrigin: true,
           secure: false,
           rewrite: (path) => path.replace(/^\/proxyApi/, '')

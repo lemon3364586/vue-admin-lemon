@@ -5,11 +5,11 @@
 import appSetting from '@/setting';
 
 const { useMock } = appSetting;
-const { NODE_ENV, VITE_PROXY_API } = import.meta.env;
+const { NODE_ENV, VITE_BASEURL, VITE_PROXY_API } = import.meta.env;
 
 let baseURL: string;
 // 无需mock数据时，开发阶段用 server.proxy 实现跨域请求
-if (!useMock) baseURL = NODE_ENV === 'development' ? VITE_PROXY_API : '';
+if (!useMock) baseURL = NODE_ENV === 'development' ? VITE_PROXY_API : VITE_BASEURL;
 
 // 创建请求实例时的默认配置
 export const axiosDefaultConfig = {

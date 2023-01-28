@@ -1,7 +1,7 @@
 import type { MockMethod } from 'vite-plugin-mock';
 
-import { success, fail } from 'mock/utils/response';
-import menuList from 'mock/data/user/menuList';
+import { success, fail } from '@/../mock/utils/response';
+import menuList from '@/../mock/data/user/menuList';
 
 export default [
   {
@@ -32,9 +32,10 @@ export default [
     }
   },
   {
-    url: '/auth/getMenuList',
+    url: '/auth/getUserMenuList',
     method: 'get',
     response: () => success(menuList)
+    // response: () => fail()
   },
   {
     url: '/auth/getUserRoles',
