@@ -18,7 +18,7 @@ export interface TableColumn {
   /** 是否使用自定义插槽 */
   slot?: boolean;
   /** 格式化内容 */
-  formatter?: PropType<() => void>;
+  formatter?: () => void;
   // formatter?: PropType<(row: object, column: object, cellValue: any) => void>;
 }
 
@@ -38,22 +38,28 @@ export interface TableConfigType {
   /** 是否要高亮当前行 */
   highlightCurrentRow?: boolean;
   /** 表格样式 */
-  style?: object;
+  style?: any;
   /** 单元格样式 */
-  cellStyle?: object;
+  cellStyle?: any;
   /** 表头单元格样式 */
-  headerCellStyle?: object;
+  headerCellStyle?: any;
   /** Table 的尺寸 */
   size?: 'large' | 'default' | 'small';
 }
 
-export interface TablePropsType {
-  /** 表格数据 */
-  tableData: Array<any>;
-  /** 表格数据渲染配置(列数据) */
-  tableHeader: Array<TableColumn>;
-  /** 表格非必要配置项 */
-  tableConfig?: TableConfigType;
+export interface TablePagination {
+  /** 是否使用小型分页样式 */
+  small?: boolean;
+  /** 是否为分页按钮添加背景色 */
+  background?: boolean;
+  /** 设置最大页码按钮数。 页码按钮的数量，当总页数超过该值时会折叠 */
+  pagerCount?: number;
+  /** 组件布局，子组件名用逗号分隔 */
+  layout?: string;
+  /** 每页显示个数选择器的选项设置 */
+  pageSizes?: number[];
+  /** 是否禁用分页 */
+  disabled?: boolean;
+  /** 只有一页时是否隐藏 */
+  hideOnSinglePage?: boolean;
 }
-
-export interface TablePagination {}
