@@ -49,11 +49,11 @@ export default defineConfig(({ command, mode }) => {
         dts: 'types/global/auto-import.d.ts',
         resolvers: []
       }),
-      Components({
-        dirs: ['src/components'],
-        dts: 'types/global/components.d.ts',
-        resolvers: []
-      })
+      // Components({
+      //   dirs: ['src/components'],
+      //   dts: 'types/global/components.d.ts',
+      //   resolvers: []
+      // })
     ],
     build: {
       outDir: 'dist', // 指定打包路径，默认为项目根目录下的 dist 目录
