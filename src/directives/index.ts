@@ -11,7 +11,7 @@ const directiveModules = import.meta.glob('./modules/*.ts', {
 });
 
 const setupDirectives = (app: App<Element>) => {
-  for (let module in directiveModules) {
+  for (const module in directiveModules) {
     const moduleDefault = directiveModules[module];
     app.directive(moduleDefault['name'], moduleDefault['handle']);
   }
