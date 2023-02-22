@@ -5,12 +5,6 @@
 
 const auther: string = '🍋LEMON🍋';
 
-const defaultConsole = (message: any) => {
-  const content = `%c ${auther} %c ${message} `;
-  const autherCss = 'background: #030307;color: #fadfa3;padding:5px 0;';
-  const contentCss = 'background: #fadfa3;padding:5px 0;';
-  console.log(content, autherCss, contentCss);
-};
 const primaryConsole = (message: any) => {
   const content = `%c ${auther} %c ${message} `;
   const autherCss = 'background: #030307;color: #fadfa3;padding:5px 0;';
@@ -42,27 +36,13 @@ const infoConsole = (message: any) => {
   console.log(content, autherCss, contentCss);
 };
 
-const lemonConsole = (message: any, type: string = 'default') => {
-  switch (type) {
-    case 'primary':
-      primaryConsole(message);
-      break;
-    case 'success':
-      successConsole(message);
-      break;
-    case 'warning':
-      warningConsole(message);
-      break;
-    case 'danger':
-      dangerConsole(message);
-      break;
-    case 'info':
-      infoConsole(message);
-      break;
-    default:
-      defaultConsole(message);
-      break;
-  }
-};
+class lemonConsole {
+  constructor() {}
+  primary = (message: any) => primaryConsole(message);
+  success = (message: any) => successConsole(message);
+  warning = (message: any) => warningConsole(message);
+  danger = (message: any) => dangerConsole(message);
+  info = (message: any) => infoConsole(message);
+}
 
 export default lemonConsole;

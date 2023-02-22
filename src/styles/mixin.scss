@@ -11,7 +11,3 @@
   justify-content: $content;
   align-items: $items;
 }
-@mixin flex-col($align: center) {
-  display: flex;
-  align-items: $align;
-}

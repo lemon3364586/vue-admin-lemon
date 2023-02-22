@@ -1,9 +1,8 @@
 // api request 使用示例
 
-import request from '@/dependencies/axios';
-import { axiosGet, axiosPost } from '@/dependencies/axios';
+import request, { axiosGet, axiosPost } from '@/dependencies/axios';
 
-export function test(params: object, data: object) {
+export function test(params: object, data: any) {
   return request({
     url: '/example/example',
     method: 'get|post',

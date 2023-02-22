@@ -4,9 +4,10 @@
  */
 
 const remoteScript = (src: string) => {
-  const scriptNode = document.createElement('script');
-  scriptNode.type = 'text/javascript';
-  scriptNode.src = src;
-  document.body.appendChild(scriptNode);
+  const scriptVNode = document.createElement('script');
+  scriptVNode.type = 'text/javascript';
+  scriptVNode.src = src;
+  document.body.appendChild(scriptVNode);
 };
+
 export default remoteScript;

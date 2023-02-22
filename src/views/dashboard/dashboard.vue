@@ -1,7 +1,5 @@
 <!-- 首页 -->
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div class="container">首页</div>

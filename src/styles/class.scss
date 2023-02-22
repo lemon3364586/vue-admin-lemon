@@ -14,18 +14,18 @@
   border: 0;
 }
 
-// 定义内外边距，历遍1-50
-@for $i from 0 through 50 {
-  // 得出：margin-30或m-30
+// 定义内外边距，历遍1-100
+@for $i from 0 through 100 {
+  // 得出：margin-30 或 m-30
   .margin-#{$i},
   .m-#{$i} {
-    margin: $i + px !important;
+    margin: $i + px;
   }
 
-  // 得出：padding-30或p-30
+  // 得出：padding-30 或 p-30
   .padding-#{$i},
   .p-#{$i} {
-    padding: $i + px !important;
+    padding: $i + px;
   }
 
   // 只要双数和能被5除尽的数
@@ -34,11 +34,11 @@
     @each $short, $long in l left, t top, r right, b bottom {
       // 定义外边距
       .m-#{$short}-#{$i} {
-        margin-#{$long}: $i + px !important;
+        margin-#{$long}: $i + px;
       }
       // 定义内边距
       .p-#{$short}-#{$i} {
-        padding-#{$long}: $i + px !important;
+        padding-#{$long}: $i + px;
       }
     }
   }
@@ -51,47 +51,35 @@
 }
 @for $i from 0 through 50 {
   .radius-#{$i} {
-    border-radius: $i + px !important;
+    border-radius: $i + px;
   }
   .radius-tl-#{$i} {
-    border-top-left-radius: $i + px !important;
+    border-top-left-radius: $i + px;
   }
   .radius-tr-#{$i} {
-    border-top-right-radius: $i + px !important;
+    border-top-right-radius: $i + px;
   }
   .radius-bl-#{$i} {
-    border-bottom-left-radius: $i + px !important;
+    border-bottom-left-radius: $i + px;
   }
   .radius-br-#{$i} {
-    border-bottom-left-radius: $i + px !important;
+    border-bottom-left-radius: $i + px;
   }
 }
 
-// 文本行数限制
+// 文本行数限制，超过显示 …
 .line-1 {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.line-2,
-.line-3,
-.line-4,
-.line-5 {
-  overflow: hidden;
-  word-break: break-all;
-  text-overflow: ellipsis;
-  display: -webkit-box; // 弹性伸缩盒
-  -webkit-box-orient: vertical; // 设置伸缩盒子元素排列方式
-}
-.line-2 {
-  -webkit-line-clamp: 2;
-}
-.line-3 {
-  -webkit-line-clamp: 3;
-}
-.line-4 {
-  -webkit-line-clamp: 4;
-}
-.line-5 {
-  -webkit-line-clamp: 5;
+@for $i from 2 through 10 {
+  .line-#{$i} {
+    overflow: hidden;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: #{$i};
+  }
 }

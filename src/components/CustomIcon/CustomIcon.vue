@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // 引入阿里 iconfont
 import remoteScript from '@/utils/remote-script';
-import appSetting from '@/setting'
+import appSetting from '@/setting';
 for (let link of appSetting.aliIcon) {
   remoteScript(link);
 }

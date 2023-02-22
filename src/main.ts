@@ -4,19 +4,21 @@ import App from './App.vue';
 import router from './routers'; // router
 import pinia from './stores'; // pinia 状态管理库
 
+import setupGlobalCmp from './components'; // 注册全局组件
 import setupDirectives from './directives'; // 注册自定义事件
-import setupElementPlus from './dependencies/element-plus'; // 注册 element-plus
 import setupI18n from './i18n'; // 注册国际化
+import setupElementPlus from './plugins/element-plus'; // 注册 element-plus
 
-import './utils/load-styles'; // 全局样式
+import './plugins/load-styles'; // 全局样式
 
 const app = createApp(App);
 
 app.use(pinia);
 app.use(router);
 
+setupGlobalCmp(app);
 setupDirectives(app);
-setupElementPlus(app);
 setupI18n(app);
+setupElementPlus(app);
 
 app.mount('#app');

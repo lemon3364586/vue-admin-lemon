@@ -10,9 +10,9 @@ const directiveModules = import.meta.glob('./modules/*.ts', {
   eager: true
 });
 
-const setupDirectives = (app: App<Element>) => {
-  for (const module in directiveModules) {
-    const moduleDefault = directiveModules[module];
+const setupDirectives = (app: App) => {
+  for (const moduleKey in directiveModules) {
+    const moduleDefault = directiveModules[moduleKey];
     app.directive(moduleDefault['name'], moduleDefault['handle']);
   }
 };

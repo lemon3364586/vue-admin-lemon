@@ -104,7 +104,7 @@ onBeforeUnmount(() => {
       text-align: center;
       border-radius: 50%;
     }
-    .second{
+    .second {
       margin: 0 -30px;
     }
   }
@@ -187,7 +187,7 @@ onBeforeUnmount(() => {
         line-height: 120px;
         border-radius: 50%;
       }
-      .second{
+      .second {
         margin: 0 -20px;
       }
     }
