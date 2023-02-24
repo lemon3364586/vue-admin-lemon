@@ -18,7 +18,7 @@ export interface TableColumn {
   /** 是否使用自定义插槽 */
   slot?: boolean;
   /** 格式化内容 */
-  formatter?: () => void;
+  formatter?: () => any;
   // formatter?: PropType<(row: object, column: object, cellValue: any) => void>;
 }
 
