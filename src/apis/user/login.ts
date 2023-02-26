@@ -1,4 +1,4 @@
-import { axiosGet, axiosPost } from '@/dependencies/axios/index.js';
+import { axiosGet, axiosPost } from '@/plugins/axios';
 import type { UserLoginType } from './type';
 
 // 登出

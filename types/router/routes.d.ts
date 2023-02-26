@@ -1,17 +1,19 @@
+import { BlobOptions } from 'buffer';
 import type { RouteRecordRaw } from 'vue-router';
-
-/** 用户角色 */
-export type RolesType = 'developer' | 'system' | 'admin' | 'manage' | 'visitor';
 
 interface RouteMeta {
   /** 路由 title */
   title?: string;
-  /** 可访问该路由的用户角色 */
-  roles?: RolesType[];
+  /** 在侧边栏显示图标名 */
+  icon?: string;
   /** 是否显示在面包屑导航，默认 true */
   breadcrumbView?: boolean;
   /** 是否显示在 tags 导航栏，默认 true */
   tagsView?: boolean;
+  /** 是否外链 */
+  isHyperLink?: boolean;
+  /** 额外参数，会在访问路由时以 query 形式附加到访问地址 */
+  extra?: string;
 }
 
 type Component<T = any> =
@@ -26,10 +28,12 @@ export interface RouteRawType extends Omit<RouteRecordRaw, 'meta'> {
   name?: string;
   /** 对应组件 */
   component?: Component | string;
-  /** 重定向地址 */
+  /** 是否在侧边栏隐藏 */
+  hidden?: boolean;
+  /** 重定向路由地址 */
   redirect?: string;
   /** 路由元信息 */
-  meta?: RouteMeta;
+  meta: RouteMeta;
   /** 子路由 */
   children?: RouteRawType[];
 }
