@@ -1,10 +1,10 @@
 {
-  "name": "vue-lemon-admin",
+  "name": "vue-admin-lemon",
   "version": "0.0.1",
   "private": true,
   "author": "lemon3364586<jun3364586@outlook.com>",
   "license": "MIT",
-  "description": "vue-lemon-admin 基于vue3+elemen-plus的简单后台管理",
+  "description": "vue-admin-lemon 基于vue3+elemen-plus的简单后台管理",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",
@@ -62,11 +62,12 @@
     "Vite",
     "Axios",
     "admin",
-    "vue-lemon-admin"
+    "vue-admin",
+    "vue-admin-lemon"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/facebook/react.git"
+    "url": "https://github.com/lemon3364586/vue-admin-lemon"
   },
   "engines": {
     "node": ">=16"

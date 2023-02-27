@@ -1,9 +1,8 @@
-import { BlobOptions } from 'buffer';
 import type { RouteRecordRaw } from 'vue-router';
 
 interface RouteMeta {
-  /** 路由 title */
-  title?: string;
+  /** 路由 title(侧边栏菜单名称) */
+  title: string;
   /** 在侧边栏显示图标名 */
   icon?: string;
   /** 是否显示在面包屑导航，默认 true */

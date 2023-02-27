@@ -1,5 +1,9 @@
 <script setup lang="ts">
-// 引入阿里 iconfont
+/**
+ * 引入阿里 iconfont 图标
+ * 此处因为只是一个demo，所以直接采取了在线引入的方式
+ * 如果是实际项目开发过程中，还是下载iconfont包到本地更合适
+ */
 import remoteScript from '@/utils/remote-script';
 import appSetting from '@/setting';
 for (let link of appSetting.aliIcon) {
