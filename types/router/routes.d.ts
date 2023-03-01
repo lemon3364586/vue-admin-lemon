@@ -32,7 +32,7 @@ export interface RouteRawType extends Omit<RouteRecordRaw, 'meta'> {
   /** 重定向路由地址 */
   redirect?: string;
   /** 路由元信息 */
-  meta: RouteMeta;
+  meta?: RouteMeta;
   /** 子路由 */
   children?: RouteRawType[];
 }

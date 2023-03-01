@@ -2,7 +2,7 @@ import type { RouteRawType } from 'types/router/routes';
 
 const asyncRoutes: Array<RouteRawType> = [
   {
-    path: 'test',
+    path: '/test',
     meta: { title: '测试(一)' },
     children: [
       {
@@ -11,8 +11,8 @@ const asyncRoutes: Array<RouteRawType> = [
         children: [
           {
             path: 'test2',
-            component: '',
-            meta: { title: '测试' }
+            component: 'plat/test/test2',
+            meta: { title: '测试2' }
           }
         ]
       },

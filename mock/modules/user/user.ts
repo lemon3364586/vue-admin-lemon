@@ -46,7 +46,7 @@ export default [
     url: '/user/getUserRoutes',
     method: 'get',
     response: ({ headers, body }) => {
-      if (!headers['token']) return fail('请先登录');
+      // if (!headers['token']) return fail('请先登录');
       return success(menuList);
     }
   }

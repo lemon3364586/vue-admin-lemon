@@ -1,6 +1,6 @@
 <!-- 页面布局 -->
 <script setup lang="ts">
-import sidebar from './components/sidebar/sidebar.vue';
+import sidebar from './cmpts/sidebar/sidebar.vue';
 </script>
 
 <template>

@@ -10,18 +10,17 @@
  * 综合两种方式，前端开发效率会稍微高一点，当然，仅一家之言，不具有参考价值
  */
 
-import { createRouter, createWebHashHistory } from 'vue-router';
 import type { RouteRecordRaw } from 'vue-router';
+import type { RouteRawType } from 'types/router/routes.d';
+import { createRouter, createWebHashHistory } from 'vue-router';
 
 import routerInterceptor from './interceptor/interceptor';
 
 import Layout from '@/layout/layout.vue';
 
-import loginRoutes from './modules/login';
 import errorRoutes from './modules/error';
-import testRoutes from './modules/test';
 
-const routes = [
+export const constantRoutes: Array<RouteRawType> = [
   {
     path: '/',
     name: 'Home',
@@ -31,22 +30,41 @@ const routes = [
       {
         path: 'dashboard',
         component: () => import('@/views/dashboard/dashboard.vue'),
-        meta: { title: '首页', roles: ['admin'] }
-      },
-      ...testRoutes
+        meta: { title: '首页' }
+      }
     ]
   },
-  ...loginRoutes,
+  {
+    path: '/login',
+    name: 'Login',
+    hidden: true,
+    component: () => import('@/views/login/login.vue'),
+    meta: { title: '登录', breadcrumbView: false, tagsView: false }
+  },
+  {
+    path: '/about',
+    name: 'About',
+    hidden: true,
+    component: () => import('@/views/login/login.vue'),
+    meta: { title: '登录', breadcrumbView: false, tagsView: false }
+  },
+  {
+    path: '/redirect',
+    name: 'Redirect',
+    hidden: true,
+    component: () => import('@/views/redirect/redirect.vue'),
+    meta: { title: '404', breadcrumbView: false, tagsView: false }
+  },
   ...errorRoutes
-] as RouteRecordRaw[];
+];
 
 const router = createRouter({
   history: createWebHashHistory(),
-  // routes: constantRoutes as RouteRecordRaw[],
-  routes,
+  routes: constantRoutes as unknown as RouteRecordRaw[],
   // https://router.vuejs.org/zh/guide/advanced/scroll-behavior.html
   scrollBehavior(to, from, savedPosition) {
-    // 始终滚动到顶部
+    if (savedPosition) return savedPosition;
+    // 始终滚动到顶部(延迟滚动)
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve({ left: 0, top: 0 });

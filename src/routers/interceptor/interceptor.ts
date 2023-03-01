@@ -7,7 +7,7 @@ import { resetAll } from '@/utils/storage';
 import { ElMessageBox } from 'element-plus';
 
 // 不需要登录，也不需要权限可以直接访问的路由
-const allowRoutesList = ['/login', '/register', '/about'];
+const allowRoutesList = ['/login', '/redirect', '/about', '/error/403', '/error/404'];
 const routerInterceptor = (router) => {
   // 全局路由前置守卫
   router.beforeEach(async (to, from) => {
@@ -16,12 +16,10 @@ const routerInterceptor = (router) => {
       document.title = `跳转中…`;
     }
 
-    if (allowRoutesList.includes(to.path)) {
-      if (to.path === '/login') resetAll(); // 进入登录页面时，清空所有已缓存数据
-      return;
-    }
+    // 白名单中路由直接跳转
+    if (allowRoutesList.includes(to.path)) return;
 
-    const { getAccessToken, getUserRoles, userHasRoutePermission } = useUserStore();
+    const { userRoutes, getAccessToken, getUserRoutes } = useUserStore();
     if (!getAccessToken) {
       await ElMessageBox.alert('当前浏览器尚未登录账号，点击确认前往登录', '未登录', {
         confirmButtonText: '确认',
@@ -32,12 +30,11 @@ const routerInterceptor = (router) => {
       });
       return { path: '/login', query: { redirect: to.path } };
     }
-
-    const canGetRoles = await getUserRoles(); // 从后端获取用户角色，避免恶意修改数据
-    if (!canGetRoles) return { path: '/login', query: { redirect: to.path } };
-
-    const hasPermission = userHasRoutePermission({ ...to });
-    if (!hasPermission) return { path: '/403' };
+    // pinia 里没有用户路由，去获取用户路由
+    if (userRoutes.length < 1) {
+      const canGetUserRoutes = await getUserRoutes();
+      if (!canGetUserRoutes) return { path: '/login', query: { redirect: to.path } };
+    }
   });
 
   // 全局路由后置守卫

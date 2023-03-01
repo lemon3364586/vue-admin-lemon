@@ -5,16 +5,19 @@
 
 'use strict';
 
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
-import { axiosDefaultConfig } from './config.js';
+import axios from 'axios';
+import type { AxiosInstance, InternalAxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import { axiosDefaultConfig } from './config';
 import { networkSuccess, networkError } from './handleResult';
 
 // 实例化 axios
 const axiosInstance: AxiosInstance = axios.create(axiosDefaultConfig);
+// request 请求集合，用于取消请求等
+const abortControllerMap = new Map();
 
 // 请求拦截
 axiosInstance.interceptors.request.use(
-  (config: AxiosRequestConfig) => {
+  (config: InternalAxiosRequestConfig) => {
     /**
      * 可在此处配置请求前拦截，如添加 token 等
      * config.headers.token = 'xxx'
@@ -24,6 +27,10 @@ axiosInstance.interceptors.request.use(
 
     // if (getToken()) config.headers['token'] = getToken();// 携带token
     // config.params.ts = new Date();// 携带请求发起时间
+
+    // 将请求存入 map 中，用于取消请求操作
+    const controller = new AbortController();
+    abortControllerMap.set(config.url, controller);
 
     return config;
   },
@@ -41,7 +48,12 @@ axiosInstance.interceptors.response.use(
     // console.log('请求后拦截Response:', response); // for debug
     // return Promise.resolve(response);
     // return Promise.reject(response);
-    return networkSuccess(response);
+
+    // 从请求 map 中删除已完成请求
+    const { url } = response.config;
+    abortControllerMap.delete(url);
+
+    return Promise.resolve(networkSuccess(response));
   },
   (error: AxiosError) => {
     // 状态码不为 2xx 时，do something
@@ -52,8 +64,23 @@ axiosInstance.interceptors.response.use(
 );
 
 export default axiosInstance;
+/** 取消全部请求 */
+export function cancelAllRequest() {
+  for (const [, controller] of this.abortControllerMap) {
+    controller.abort();
+  }
+  abortControllerMap.clear();
+}
+/** 取消指定 url 的请求 */
+export function cancelRequest(url: string | string[]) {
+  const urlList = Array.isArray(url) ? url : [url];
+  for (const _url of urlList) {
+    abortControllerMap.get(_url)?.abort();
+    abortControllerMap.delete(_url);
+  }
+}
 
-interface options {
+interface optionsType {
   baseURL?: string;
   timeout?: number;
   url?: string;
@@ -61,13 +88,15 @@ interface options {
   params?: object;
   data?: object;
 }
-
 // get 请求
-export const axiosGet = (options: options) => {
+export function axiosGet(options: optionsType) {
   return axiosInstance({ ...options, method: 'get' });
-};
-
+}
 // post 请求
-export const axiosPost = (options: options) => {
+export function axiosPost(options: optionsType) {
   return axiosInstance({ ...options, method: 'post' });
-};
+}
+// delete 请求
+export function axiosDelete(options: optionsType) {
+  return axiosInstance({ ...options, method: 'delete' });
+}

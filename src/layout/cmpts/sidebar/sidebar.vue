@@ -1,27 +1,17 @@
 <!-- 侧栏菜单 -->
 <script setup lang="ts">
-import SidebarItem from './components/SidebarItem.vue';
+import SidebarItem from './cmpts/SidebarItem.vue';
 
 import appSetting from '@/setting';
 import { useAppStore } from '@/stores/modules/app';
-import { getUserMenuList } from '@/apis/user/login';
-import { ElMessage } from 'element-plus';
+import { useUserStore } from '@/stores/modules/user';
 
 const router = useRouter();
 
 const { sidebarOpen } = storeToRefs(useAppStore());
+const { userSidebarMenu } = storeToRefs(useUserStore());
 
 // 从后端获取用户菜单列表
-const menuList = ref([]);
-async function getMenuList() {
-  const { code, msg, data } = await getUserMenuList();
-  if (code === 200) menuList.value = data;
-  else {
-    ElMessage.error(msg || '获取可用菜单列表失败，已自动退出登录，详情请咨询管理员');
-    router.replace('/login');
-  }
-}
-getMenuList();
 
 // 获取当前激活路由，设置为菜单激活项
 const activeMenu = computed(() => {
@@ -44,7 +34,7 @@ const activeMenu = computed(() => {
         :collapse-transition="false"
         mode="vertical"
       >
-        <SidebarItem v-for="subMenu in menuList" :key="subMenu.path" :sub-menu="subMenu" />
+        <SidebarItem v-for="subMenu in userSidebarMenu" :key="subMenu.path" :sub-menu="subMenu" />
       </el-menu>
     </el-scrollbar>
   </div>
