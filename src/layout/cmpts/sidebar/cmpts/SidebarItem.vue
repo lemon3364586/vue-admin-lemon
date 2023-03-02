@@ -11,7 +11,7 @@ defineProps({
 
 // 判断是否有子菜单
 function hasChildren(item) {
-  return item.children && item.children.length > 0;
+  return item?.children?.length > 0;
 }
 </script>
 
@@ -21,14 +21,10 @@ function hasChildren(item) {
     <el-sub-menu :index="subMenu.path">
       <template #title>
         <!-- <LemonIcon v-if="subMenu.icon" :name="subMenu.icon" color="#fff"></LemonIcon> -->
-        <span class="title line-1">{{ subMenu.title }}</span>
+        <span class="title line-1">{{ subMenu.meta.title }}</span>
       </template>
       <!-- 递归调用，生成子菜单 -->
-      <SidebarItem
-        v-for="childItem in subMenu.children"
-        :key="childItem.path"
-        :sub-menu="childItem"
-      ></SidebarItem>
+      <SidebarItem v-for="childItem in subMenu.children" :key="childItem.path" :sub-menu="childItem"></SidebarItem>
     </el-sub-menu>
   </template>
   <!-- 无子菜单 -->
@@ -36,7 +32,7 @@ function hasChildren(item) {
     <AppLink :path="subMenu.path">
       <el-menu-item :index="subMenu.path">
         <!-- <LemonIcon v-if="subMenu.icon" :name="subMenu.icon" color="#fff"></LemonIcon> -->
-        <span class="title line-1">{{ subMenu.title }}</span>
+        <span class="title line-1">{{ subMenu.meta.title }}</span>
       </el-menu-item>
     </AppLink>
   </template>

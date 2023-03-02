@@ -1,16 +1,13 @@
 # prettier 格式化 ignore 忽略
 
-# ignore 文件夹
+# 文件夹
 /dist/*
-.local
-.output.js
 /node_modules/*
 /public/*
 
-# ignore 文件
+# 文件
+*.html
 **/*.svg
 **/*.sh
-
-
-# ignore 所有 html 文件
-*.html
+*.local
+*.output.js

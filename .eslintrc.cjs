@@ -37,6 +37,6 @@ module.exports = {
     // 'vue/no-unused-vars': 0, // 已定义/引入，但未使用变量
     'vue/valid-template-root': 1, // element 空节点
 
-    'prettier/prettier': [0, { endOfLine: 'auto' }] // 关闭 prettier 相关提示
+    'prettier/prettier': [0, { endOfLine: 'auto' }] // 关闭 prettier 换行符相关提示
   }
 };

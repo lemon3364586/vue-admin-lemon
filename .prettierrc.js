@@ -1,7 +1,7 @@
 // 使用默认值的都注释掉了，需要修改可自行打开
 module.exports = {
   // 单行最大长度 default:80
-  printWidth: 100,
+  printWidth: 120,
   // 缩进是否使用 tab
   useTabs: false,
   // 一个tab对应的空格数

@@ -3,7 +3,7 @@
 import { startProgress, doneProgress } from '@/utils/nporgress';
 import appSetting from '@/setting';
 import { useUserStore } from '@/stores/modules/user';
-import { resetAll } from '@/utils/storage';
+import { useRouteStore } from '@/stores/modules/route';
 import { ElMessageBox } from 'element-plus';
 
 // 不需要登录，也不需要权限可以直接访问的路由
@@ -19,7 +19,8 @@ const routerInterceptor = (router) => {
     // 白名单中路由直接跳转
     if (allowRoutesList.includes(to.path)) return;
 
-    const { userRoutes, getAccessToken, getUserRoutes } = useUserStore();
+    const { getAccessToken } = useUserStore();
+    const { defaultRoutes, getUserRoutes } = useRouteStore();
     if (!getAccessToken) {
       await ElMessageBox.alert('当前浏览器尚未登录账号，点击确认前往登录', '未登录', {
         confirmButtonText: '确认',
@@ -31,9 +32,12 @@ const routerInterceptor = (router) => {
       return { path: '/login', query: { redirect: to.path } };
     }
     // pinia 里没有用户路由，去获取用户路由
-    if (userRoutes.length < 1) {
+    if (defaultRoutes.length < 1) {
       const canGetUserRoutes = await getUserRoutes();
       if (!canGetUserRoutes) return { path: '/login', query: { redirect: to.path } };
+      // 动态添加路由后，需触发新导航才能生效，否则会跳往404
+      // https://router.vuejs.org/zh/api/index.html#addroute-1
+      return { ...to, replace: true };
     }
   });
 

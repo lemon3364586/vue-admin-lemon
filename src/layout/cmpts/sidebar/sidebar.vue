@@ -4,12 +4,10 @@ import SidebarItem from './cmpts/SidebarItem.vue';
 
 import appSetting from '@/setting';
 import { useAppStore } from '@/stores/modules/app';
-import { useUserStore } from '@/stores/modules/user';
-
-const router = useRouter();
+import { useRouteStore } from '@/stores/modules/route';
 
 const { sidebarOpen } = storeToRefs(useAppStore());
-const { userSidebarMenu } = storeToRefs(useUserStore());
+const { sidebarMenu } = storeToRefs(useRouteStore());
 
 // 从后端获取用户菜单列表
 
@@ -34,7 +32,7 @@ const activeMenu = computed(() => {
         :collapse-transition="false"
         mode="vertical"
       >
-        <SidebarItem v-for="subMenu in userSidebarMenu" :key="subMenu.path" :sub-menu="subMenu" />
+        <SidebarItem v-for="subMenu in sidebarMenu" :key="subMenu.path" :sub-menu="subMenu" />
       </el-menu>
     </el-scrollbar>
   </div>
@@ -53,6 +51,8 @@ const activeMenu = computed(() => {
     display: flex;
     justify-content: center;
     align-items: center;
+    border-bottom: 1px solid #666;
+    margin: 0 10px;
     &-title {
       color: #fff;
       font-size: 20px;
@@ -68,10 +68,21 @@ const activeMenu = computed(() => {
       border: none;
       height: 100%;
       width: 100%;
+      .el-sub-menu {
+        // 有子菜单
+        margin: 5px 0;
+        .el-sub-menu__title {
+          color: #fff;
+          &:hover {
+            background-color: $menuActiveColor !important;
+            border-radius: 5px;
+          }
+        }
+      }
+      // 无子菜单
       .el-menu-item {
-        // 无子菜单的样式
         color: #fff;
-        margin-bottom: 5px;
+        margin: 5px 0;
         &:hover {
           background-color: $menuActiveColor;
           border-radius: 5px;
@@ -79,17 +90,6 @@ const activeMenu = computed(() => {
         &.is-active {
           background-color: $menuActiveColor !important;
           border-radius: 5px;
-        }
-      }
-      .el-sub-menu {
-        margin-bottom: 5px;
-        .el-sub-menu__title {
-          // 有子菜单的样式
-          color: #fff;
-          &:hover {
-            background-color: $menuActiveColor !important;
-            border-radius: 5px;
-          }
         }
       }
     }

@@ -1,6 +1,5 @@
-import { getUserinfo, getUserRoutes } from '@/apis/user/login';
-import { ElMessage, ElMessageBox } from 'element-plus';
-import router from '@/routers';
+import { getUserinfo } from '@/apis/user/login';
+import { ElMessage } from 'element-plus';
 
 export const useUserStore = defineStore('userStore', {
   state: () => ({
@@ -13,47 +12,16 @@ export const useUserStore = defineStore('userStore', {
     userRoutes: [] // 用户可访问路由
   }),
   getters: {
-    userSidebarMenu(state) {
-      const dashboard = { path: 'dashboard', meta: { title: '首页', icon: '' } };
-      // 根据用户路由，生成用户菜单
-      const userMenu = state.userRoutes.filter((route) => {
-        const { hidden } = route;
-        if (hidden) return false; // 过滤需要隐藏的菜单
-        return true;
-      });
-      return { dashboard, ...userMenu };
-    },
     getAccessToken(state) {
+      // return state.accessToken?.length > 0;
       return true;
-      return state.accessToken && state.accessToken.length > 0;
     },
+    userRoles: (state) => state.userInfo?.roles,
     isDeveloper(state) {
       return state.userInfo?.roles?.includes('developer');
     }
   },
   actions: {
-    // 获取用户路由
-    async getUserRoutes() {
-      const { code, msg, data } = await getUserRoutes();
-      if (code === 200) {
-        const asyncRoutes = generateRoutes(data);
-        console.log('[ asyncRoutes ]-40', asyncRoutes);
-        // asyncRoutes.forEach((route) => {
-        //   router.addRoute(route);
-        // });
-        // this.userRoutes = asyncRoutes;
-        return true;
-      } else {
-        await ElMessageBox.alert('获取用户菜单失败，请检查账户是否正确，然后重新登录', '', {
-          confirmButtonText: '确认',
-          type: 'error',
-          autofocus: false,
-          showClose: false,
-          buttonSize: 'default'
-        });
-        return false;
-      }
-    },
     // 获取用户信息
     async getUserInfo() {
       // 不存在缓存用户信息，从后端请求用户信息(包含用户权限)
@@ -64,36 +32,3 @@ export const useUserStore = defineStore('userStore', {
   },
   persist: { storage: sessionStorage, paths: ['accessToken', 'userInfo'] }
 });
-
-/** 生成路由表 */
-function generateRoutes(routes: Array<any>, parentPath?: string) {
-  console.log('[ routes ]-71', routes);
-  // return routes.map((route) => {
-  //   if (route?.children) generateRoutes(route.children);
-  //   else {
-  //     if (route.component) route.component = loadRouteView(route.component);
-  //   }
-  // });
-  const resRoutes = [];
-
-  routes.forEach((route) => {
-    const temp = { ...route };
-    if (temp.children?.length > 0) generateRoutes(temp.children, temp.path);
-    else {
-      // delete temp['children'];
-      // if (route.component) route.component = loadRouteView(route.component);
-      // if (temp.component)
-      temp.component = '888';
-      temp.fullPath = `/${parentPath}/${temp.path}`;
-    }
-    // resRoutes.push(temp);
-    console.log('[ temp ]-91', temp);
-  });
-
-  // return resRoutes;
-}
-/** 加载路由文件 */
-function loadRouteView(componentPath) {
-  return import(`@/views/${componentPath}.vue`);
-  // return import(`/src/views/${componentPath}.vue`);
-}
