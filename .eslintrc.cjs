@@ -31,6 +31,7 @@ module.exports = {
     'no-unreachable': 0, // 不能有无法执行的代码(如代码中直接return)
     'no-useless-escape': 0, // 不能有转义字符
     'space-before-function-paren': 0, // 函数名后必须加空格
+    'prefer-const': 1, // let 未改变提示修改为 const
 
     'vue/multi-word-component-names': 0, // 组件名称校验
     'vue/no-unused-components': 1, // 已引入，但未使用组件

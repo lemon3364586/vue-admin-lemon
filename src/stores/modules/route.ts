@@ -3,6 +3,7 @@ import { getUserRoutes } from '@/apis/user/login';
 import { ElMessageBox } from 'element-plus';
 import { omit, orderBy } from 'lodash';
 import { isHyperlink } from '@/utils/validate';
+import Layout from '@/layout/layout.vue';
 
 // 匹配 views 里面所有的 .vue 文件，用于路由动态加载
 const viewModules = import.meta.glob('@/views/**/*.vue');
@@ -81,10 +82,15 @@ function generateRoutes(routes: Array<any>, filterHyperLink = false) {
     if (filterHyperLink && isHyperlink(routeTemp.path)) return false;
 
     // 重新构建对象，将部分数据放入路由元信息
-    const { title, icon, component, breadcrumbView, tagsView } = routeTemp;
+    let { title, icon, component, breadcrumbView, tagsView } = routeTemp;
+    if (component.length > 0) {
+      // Layout 组件特殊处理
+      if (component === 'Layout') component = Layout;
+      else component = loadRouteView(component);
+    }
     routeTemp = {
       ...routeTemp,
-      component: loadRouteView(component),
+      component,
       meta: { title, icon, breadcrumbView, tagsView }
     };
 
