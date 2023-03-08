@@ -55,7 +55,7 @@ export const constantRoutes: Array<RouteRawType> = [
     component: () => import('@/views/redirect/redirect.vue'),
     meta: { title: '404', breadcrumbView: false, tagsView: false }
   },
-  ...errorRoutes
+  // ...errorRoutes
 ];
 
 const router = createRouter({

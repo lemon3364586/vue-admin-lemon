@@ -4,7 +4,7 @@ module.exports = {
   printWidth: 120,
   // 缩进是否使用 tab
   useTabs: false,
-  // 一个tab对应的空格数
+  // 一个 tab 对应的空格数
   tabWidth: 2,
   // 语句行末是否添加分号
   semi: true,
