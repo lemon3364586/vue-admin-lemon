@@ -12,13 +12,7 @@ const { size, button, message, zIndex } = storeToRefs(useElementPlusStore());
 </script>
 
 <template>
-  <el-config-provider
-    :locale="locale"
-    :size="size"
-    :zIndex="zIndex"
-    :button="button"
-    :message="message"
-  >
+  <el-config-provider :locale="locale" :size="size" :zIndex="zIndex" :button="button" :message="message">
     <RouterView />
   </el-config-provider>
 </template>

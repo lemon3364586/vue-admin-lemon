@@ -2,6 +2,7 @@
   "name": "vue-admin-lemon",
   "version": "0.0.1",
   "private": true,
+  "type": "module",
   "author": "lemon3364586<jun3364586@outlook.com>",
   "license": "MIT",
   "description": "vue-admin-lemon 基于vue3+elemen-plus的简单后台管理",
