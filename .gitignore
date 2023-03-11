@@ -1,15 +1,15 @@
+# dir
+.idea
 .DS_Store
 node_modules
 dist
 dist-ssr
+build
+unpackage
 
 # lock files
 *-lock.*
-
-# local files
 *.local
 
-# Editor directories and files
-.idea
-.vscode
-!.vscode/extensions.json
+# log files
+*.log*
